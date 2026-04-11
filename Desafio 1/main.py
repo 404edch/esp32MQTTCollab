@@ -1,7 +1,7 @@
 # main.py Aplicacao MQTT no microcontrolador
 # Execute este arquivo pelo Thonny (Run > Run current script)
 import network
-from umqtt.simple import MQTTClient
+from umqtt.robust import MQTTClient
 import machine
 import time
 import json
@@ -75,7 +75,7 @@ def callback_mensagem(topico, mensagem):
 def publicar_estado():
     estado = "ligado" if led_estado else "desligado"
     msg = json.dumps({"led": estado})
-    client.publish(TOPICO_PUBLICAR, msg)
+    client.publish(TOPICO_PUBLICAR, msg, qos=1)
     print(f" [MICRO] Publicado: {msg}")
 
 def publicar_dados_sensor():
@@ -87,7 +87,7 @@ def publicar_dados_sensor():
         "led": "ligado" if led_estado else "desligado"
     }
     msg = json.dumps(dados)
-    client.publish(TOPICO_PUBLICAR, msg)
+    client.publish(TOPICO_PUBLICAR, msg, qos=1)
     print(f" [MICRO] Dados publicados: {msg}")
 
 # ----- Conexao e loop principal -----
@@ -100,7 +100,7 @@ client = MQTTClient(CLIENT_ID, BROKER, port=PORTA)
 client.set_callback(callback_mensagem)
 client.connect()
 print(f" [MICRO] Conectado a {BROKER}")
-client.subscribe(TOPICO_ASSINAR)
+client.subscribe(TOPICO_ASSINAR, qos=1)
 print(f" [MICRO] Inscrito em: {TOPICO_ASSINAR}")
 print(" [MICRO] Aguardando comandos...\n")
 
