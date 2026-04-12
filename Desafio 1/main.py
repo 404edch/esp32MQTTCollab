@@ -13,9 +13,10 @@ SSID = "Wokwi-GUEST"            # <-- Wi-Fi: nome da rede
 SENHA = ""          # <-- Wi-Fi: senha
 BROKER = "mqtt-dashboard.com"
 PORTA = 1883
-CLIENT_ID = "micro-pucpr-2312312312"        # Use seu RA para evitar conflito
-TOPICO_PUBLICAR = "bel/micro/dados" # Micro publica aqui
-TOPICO_ASSINAR = "bel/pc/comandos"  # Micro recebe daqui
+CLIENT_ID = "micro-pucpr-2312312312asd"        # Use seu RA para evitar conflito
+TOPICO_PUBLICAR = "bel/micro/dados1" # Micro publica aqui
+TOPICO_ASSINAR = "bel/pc/comandos1"  # Micro recebe daqui
+QOS = 0
 
 # LED integrado (ajuste o pino conforme sua placa)
 # ESP32: pino 2 | Pico W: pino "LED" | ESP8266: pino 2
@@ -75,7 +76,7 @@ def callback_mensagem(topico, mensagem):
 def publicar_estado():
     estado = "ligado" if led_estado else "desligado"
     msg = json.dumps({"led": estado})
-    client.publish(TOPICO_PUBLICAR, msg, qos=1)
+    client.publish(TOPICO_PUBLICAR, msg, qos=QOS)
     print(f" [MICRO] Publicado: {msg}")
 
 def publicar_dados_sensor():
@@ -87,7 +88,7 @@ def publicar_dados_sensor():
         "led": "ligado" if led_estado else "desligado"
     }
     msg = json.dumps(dados)
-    client.publish(TOPICO_PUBLICAR, msg, qos=1)
+    client.publish(TOPICO_PUBLICAR, msg, qos=QOS)
     print(f" [MICRO] Dados publicados: {msg}")
 
 # ----- Conexao e loop principal -----
@@ -98,9 +99,9 @@ if not conectar_wifi():
 print("[MICRO] Conectando ao broker MQTT...")
 client = MQTTClient(CLIENT_ID, BROKER, port=PORTA)
 client.set_callback(callback_mensagem)
-client.connect()
+client.connect(clean_session=False)
 print(f" [MICRO] Conectado a {BROKER}")
-client.subscribe(TOPICO_ASSINAR, qos=1)
+client.subscribe(TOPICO_ASSINAR, qos=QOS)
 print(f" [MICRO] Inscrito em: {TOPICO_ASSINAR}")
 print(" [MICRO] Aguardando comandos...\n")
 
@@ -113,7 +114,7 @@ try:
         client.check_msg()
         
         # A cada 30 segundos, publica dados automaticamente
-        contador += 1
+       # contador += 1
         if contador >= 30:
             publicar_dados_sensor()
             contador = 0

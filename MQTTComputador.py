@@ -7,9 +7,10 @@ import json
 #---- Configuracoes
 BROKER = "mqtt-dashboard.com"
 PORTA = 1883
-TOPICO_PUBLICAR = "bel/pc/comandos"
-TOPICO_ASSINAR = "bel/micro/dados"
-CLIENT_ID = "bel679534"
+TOPICO_PUBLICAR = "bel/pc/comandos1"
+TOPICO_ASSINAR = "bel/micro/dados1"
+CLIENT_ID = "belBrunoTeste"
+QOS = 1
 
 # Callbacks
 # PC publica aqui
@@ -18,7 +19,7 @@ def on_connect(client, userdata, flags, rc, properties):
     """Chamada quando a conexao com o broker e estabelecida."""
     if rc == 0:
         print("[PC] Conectado ao broker MQTT!")
-        client.subscribe(TOPICO_ASSINAR)
+        client.subscribe(TOPICO_ASSINAR, qos=QOS)
         print(f" [PC] Inscrito no topico: {TOPICO_ASSINAR}")
     else:
         print(f"[PC] Falha na conexao, codigo: {rc}")
@@ -46,7 +47,7 @@ def on_disconnect(client, userdata, flags, rc, properties):
 
 # -- Programa principal
 def main():
-    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=CLIENT_ID)
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=CLIENT_ID, clean_session = False)
     client.on_connect = on_connect
     client.on_message = on_message
     client.on_disconnect = on_disconnect
@@ -69,7 +70,7 @@ def main():
                 break
             if comando:
                 mensagem = json.dumps({"comando": comando})
-                client.publish(TOPICO_PUBLICAR, mensagem)
+                client.publish(TOPICO_PUBLICAR, mensagem, qos= QOS)
                 print(f" [PC] Publicado em '{TOPICO_PUBLICAR}': {mensagem}")
     except KeyboardInterrupt:
         print("\n[PC] Interrompido pelo usuario.")
