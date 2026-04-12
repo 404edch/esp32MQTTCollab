@@ -22,9 +22,7 @@ TOPICO_PUBLICAR = "bel/micro/dados1" # Micro publica aqui
 TOPICO_ASSINAR = "bel/pc/comandos1"  # Micro recebe daqui
 QOS = 0
 
-# LED integrado (ajuste o pino conforme sua placa)
-# ESP32: pino 2 | Pico W: pino "LED" | ESP8266: pino 2
-
+#====================================
 sensor = dht.DHT22(Pin(22))
 led = Pin(23, Pin.OUT) 
 led_estado = False
@@ -36,7 +34,7 @@ alerta_umidade = False
 emergencia = False
 thread_running = False
 
-#---- Conexao Wi-Fi
+#==== Conexao Wi-Fi ====
 def conectar_wifi():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
@@ -136,7 +134,17 @@ def emergencia_alarme():
         time.sleep(1)
     thread_running = False
 
-    
+def buzz(freq,tempo):
+    buzzer.freq(freq)
+    buzzer.duty(10) 
+    time.sleep(tempo)   
+
+def alarme_som():
+    while (emergencia):
+        for freq in range(400, 650, 6):
+            buzz(freq, 0.05)
+        for freq in range(650, 400, -6):
+            buzz(freq, 0.05)
 
 
 # Loop principal
