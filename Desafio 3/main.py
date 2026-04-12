@@ -8,6 +8,7 @@ import json
 import random
 import dht
 from hcsr04 import HCSR04
+import _thread as thread
 
 
 
@@ -32,6 +33,8 @@ buzzer = PWM(Pin(12, Pin.OUT))
 alerta_proximidade = False
 alerta_temperatura = False
 alerta_umidade = False
+emergencia = False
+thread_running = False
 
 #---- Conexao Wi-Fi
 def conectar_wifi():
@@ -71,6 +74,7 @@ def callback_mensagem(topico, mensagem):
         elif comando == "emergencia_parar":
 
         elif comando == "status":
+            publicar_dados_sensor()
 
         else:
             print(f" [MICRO] Comando desconhecido: {comando}")
@@ -122,8 +126,15 @@ def verificar_estado():
         alerta_umidade = True
         print("Umidade ativo")
 
-def emergencia():
-    print(".")
+def emergencia_alarme():
+    global thread_running
+    thread_running = True
+    while emergencia:
+        led.on()
+        time.sleep(1)
+        led.off()
+        time.sleep(1)
+    thread_running = False
 
     
 
@@ -132,6 +143,10 @@ def emergencia():
 contador = 0
 try:
     while True:
+        # Código para iniciar a thread
+        # if emergencia and not thread_running:
+        #     thread.start_new_thread(emergencia_alarme, ())
+
         # Verifica novas mensagens (nao-bloqueante)
         sensor.measure()
         client.check_msg()
