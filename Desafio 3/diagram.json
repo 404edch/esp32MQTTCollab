@@ -24,7 +24,7 @@
       "top": -22.3,
       "left": -420.5,
       "rotate": 270,
-      "attrs": {}
+      "attrs": { "distance": "400" }
     },
     {
       "type": "wokwi-dht22",
@@ -32,7 +32,28 @@
       "top": 91.2,
       "left": -372.9,
       "rotate": 270,
-      "attrs": {}
+      "attrs": { "humidity": "34.5", "temperature": "-40" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -120.85,
+      "left": -153.6,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -166.8,
+      "left": -187.8,
+      "attrs": { "color": "purple", "flip": "1" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": -160.8,
+      "left": -343.8,
+      "attrs": { "volume": "0.1" }
     }
   ],
   "connections": [
@@ -41,9 +62,16 @@
     [ "esp:3V3", "bb1:bp.7", "red", [ "h0" ] ],
     [ "esp:GND.1", "bb1:bn.18", "black", [ "h0" ] ],
     [ "ultrasonic1:GND", "bb1:bn.10", "black", [ "h0" ] ],
-    [ "ultrasonic1:VCC", "bb1:bp.12", "red", [ "h0" ] ],
     [ "dht1:VCC", "bb1:bp.23", "red", [ "h0" ] ],
     [ "dht1:GND", "bb1:bn.21", "black", [ "h0" ] ],
+    [ "dht1:SDA", "esp:22", "limegreen", [ "h48", "v19.1", "h134.4", "v-172.8" ] ],
+    [ "ultrasonic1:TRIG", "esp:18", "yellow", [ "h115.2", "v29.2" ] ],
+    [ "ultrasonic1:ECHO", "esp:19", "yellow", [ "h124.8", "v29.6" ] ],
+    [ "led1:C", "r1:1", "purple", [ "v0" ] ],
+    [ "r1:2", "esp:23", "purple", [ "v0" ] ],
+    [ "led1:A", "bb1:bn.1", "black", [ "v9.6", "h-87.7" ] ],
+    [ "bz1:1", "bb1:bn.5", "black", [ "v28.8" ] ],
+    [ "bz1:2", "esp:32", "blue", [ "v9.6", "h114.8", "v115.2" ] ],
     [ "esp:0", "bb1:22t.b", "", [ "$bb" ] ],
     [ "esp:2", "bb1:23t.b", "", [ "$bb" ] ],
     [ "esp:4", "bb1:21t.b", "", [ "$bb" ] ],
@@ -82,9 +110,7 @@
     [ "esp:D1", "bb1:25t.b", "", [ "$bb" ] ],
     [ "esp:D0", "bb1:26t.b", "", [ "$bb" ] ],
     [ "esp:CLK", "bb1:27t.b", "", [ "$bb" ] ],
-    [ "dht1:SDA", "esp:22", "limegreen", [ "h48", "v19.1", "h134.4", "v-172.8" ] ],
-    [ "ultrasonic1:TRIG", "esp:18", "yellow", [ "h115.2", "v29.2" ] ],
-    [ "ultrasonic1:ECHO", "esp:19", "yellow", [ "h124.8", "v29.6" ] ]
+    [ "ultrasonic1:VCC", "esp:5V", "red", [ "h0", "v86.4", "h57.6", "v28.8" ] ]
   ],
   "dependencies": {}
 }
