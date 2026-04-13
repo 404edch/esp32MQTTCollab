@@ -92,7 +92,7 @@ def callback_mensagem(topico, mensagem):
 def publicar_dados_sensor():
     if emergencia:
         dados = {
-            "estado" : "Fudeu",
+            "estado" : "Risco de descongelamento, alarme ativo!",
             "alerta de temperatura" : alerta_temperatura,
             "temperatura": sensor.temperature(),
             "alerta de umidade" : alerta_umidade,
@@ -102,7 +102,7 @@ def publicar_dados_sensor():
         }
     else:
         dados = {
-            "estado" : "Ta safe",
+            "estado" : "Ambiente estavel.",
             "temperatura": sensor.temperature(),
             "umidade": sensor.humidity(),
             "proximidade": ultrasonco.distance_cm()
