@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "author": "Eduardo Henrique Chechin ",
+  "author": "Eduardo Henrique Chechin, Bruno Rogério Coutinho Moretoni, Lunna Damo Perera",
   "editor": "wokwi",
   "parts": [
     {
@@ -24,7 +24,7 @@
       "top": -22.3,
       "left": -420.5,
       "rotate": 270,
-      "attrs": { "distance": "400" }
+      "attrs": { "distance": "91" }
     },
     {
       "type": "wokwi-dht22",
@@ -46,7 +46,7 @@
       "id": "led1",
       "top": -166.8,
       "left": -187.8,
-      "attrs": { "color": "purple", "flip": "1" }
+      "attrs": { "color": "purple", "flip": "" }
     },
     {
       "type": "wokwi-buzzer",
@@ -67,50 +67,12 @@
     [ "dht1:SDA", "esp:22", "limegreen", [ "h48", "v19.1", "h134.4", "v-172.8" ] ],
     [ "ultrasonic1:TRIG", "esp:18", "yellow", [ "h115.2", "v29.2" ] ],
     [ "ultrasonic1:ECHO", "esp:19", "yellow", [ "h124.8", "v29.6" ] ],
-    [ "led1:C", "r1:1", "purple", [ "v0" ] ],
     [ "r1:2", "esp:23", "purple", [ "v0" ] ],
-    [ "led1:A", "bb1:bn.1", "black", [ "v9.6", "h-87.7" ] ],
     [ "bz1:1", "bb1:bn.5", "black", [ "v28.8" ] ],
     [ "bz1:2", "esp:32", "blue", [ "v9.6", "h114.8", "v115.2" ] ],
-    [ "esp:0", "bb1:22t.b", "", [ "$bb" ] ],
-    [ "esp:2", "bb1:23t.b", "", [ "$bb" ] ],
-    [ "esp:4", "bb1:21t.b", "", [ "$bb" ] ],
-    [ "esp:5", "bb1:18t.b", "", [ "$bb" ] ],
-    [ "esp:12", "bb1:21b.j", "", [ "$bb" ] ],
-    [ "esp:13", "bb1:23b.j", "", [ "$bb" ] ],
-    [ "esp:14", "bb1:20b.j", "", [ "$bb" ] ],
-    [ "esp:15", "bb1:24t.b", "", [ "$bb" ] ],
-    [ "esp:16", "bb1:20t.b", "", [ "$bb" ] ],
-    [ "esp:17", "bb1:19t.b", "", [ "$bb" ] ],
-    [ "esp:18", "bb1:17t.b", "", [ "$bb" ] ],
-    [ "esp:19", "bb1:16t.b", "", [ "$bb" ] ],
-    [ "esp:21", "bb1:14t.b", "", [ "$bb" ] ],
-    [ "esp:22", "bb1:11t.b", "", [ "$bb" ] ],
-    [ "esp:23", "bb1:10t.b", "", [ "$bb" ] ],
-    [ "esp:25", "bb1:17b.j", "", [ "$bb" ] ],
-    [ "esp:26", "bb1:18b.j", "", [ "$bb" ] ],
-    [ "esp:27", "bb1:19b.j", "", [ "$bb" ] ],
-    [ "esp:32", "bb1:15b.j", "", [ "$bb" ] ],
-    [ "esp:33", "bb1:16b.j", "", [ "$bb" ] ],
-    [ "esp:34", "bb1:13b.j", "", [ "$bb" ] ],
-    [ "esp:35", "bb1:14b.j", "", [ "$bb" ] ],
-    [ "esp:3V3", "bb1:9b.j", "", [ "$bb" ] ],
-    [ "esp:EN", "bb1:10b.j", "", [ "$bb" ] ],
-    [ "esp:VP", "bb1:11b.j", "", [ "$bb" ] ],
-    [ "esp:VN", "bb1:12b.j", "", [ "$bb" ] ],
-    [ "esp:GND.1", "bb1:22b.j", "", [ "$bb" ] ],
-    [ "esp:D2", "bb1:24b.j", "", [ "$bb" ] ],
-    [ "esp:D3", "bb1:25b.j", "", [ "$bb" ] ],
-    [ "esp:CMD", "bb1:26b.j", "", [ "$bb" ] ],
-    [ "esp:5V", "bb1:27b.j", "", [ "$bb" ] ],
-    [ "esp:GND.2", "bb1:9t.b", "", [ "$bb" ] ],
-    [ "esp:TX", "bb1:12t.b", "", [ "$bb" ] ],
-    [ "esp:RX", "bb1:13t.b", "", [ "$bb" ] ],
-    [ "esp:GND.3", "bb1:15t.b", "", [ "$bb" ] ],
-    [ "esp:D1", "bb1:25t.b", "", [ "$bb" ] ],
-    [ "esp:D0", "bb1:26t.b", "", [ "$bb" ] ],
-    [ "esp:CLK", "bb1:27t.b", "", [ "$bb" ] ],
-    [ "ultrasonic1:VCC", "esp:5V", "red", [ "h0", "v86.4", "h57.6", "v28.8" ] ]
+    [ "ultrasonic1:VCC", "esp:5V", "red", [ "h0", "v86.4", "h57.6", "v28.8" ] ],
+    [ "led1:A", "r1:1", "purple", [ "v9.6", "h-0.4" ] ],
+    [ "led1:C", "bb1:bn.1", "black", [ "v0", "h-86.4" ] ]
   ],
   "dependencies": {}
 }
