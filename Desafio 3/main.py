@@ -102,13 +102,14 @@ def publicar_dados_sensor():
         }
     else:
         dados = {
-            "estado" : "Ambiente estavel.",
+            "estado" : "Condições estáveis.",
             "temperatura": sensor.temperature(),
             "umidade": sensor.humidity(),
             "proximidade": ultrasonco.distance_cm()
         }
     msg = json.dumps(dados)
-    client.publish(TOPICO_PUBLICAR, msg, qos=QOS)
+    msg_encoded = msg.encode("utf-8")
+    client.publish(TOPICO_PUBLICAR, msg_encoded, qos=QOS)
     print(f" [MICRO] Dados publicados: {msg}")
 
 def verificar_estado():
@@ -186,8 +187,8 @@ try:
             thread.start_new_thread(emergencia_led, ())
             thread.start_new_thread(alarme_som, ())
         # Verifica novas mensagens (nao-bloqueante)
-        client.check_msg()
         sensor.measure()
+        client.check_msg()
         if not lock:
             verificar_estado()
         # A cada 30 segundos, publica dados automaticamente

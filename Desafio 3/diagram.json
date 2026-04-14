@@ -24,7 +24,7 @@
       "top": -22.3,
       "left": -420.5,
       "rotate": 270,
-      "attrs": { "distance": "91" }
+      "attrs": { "distance": "115" }
     },
     {
       "type": "wokwi-dht22",
